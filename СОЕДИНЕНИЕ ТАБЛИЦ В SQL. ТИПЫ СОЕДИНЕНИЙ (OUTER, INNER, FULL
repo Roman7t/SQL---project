@@ -1,0 +1,13 @@
+with actors_info as (SELECT sakila.film_actor.actor_id, first_name, last_name, film_id  
+FROM sakila.film_actor
+INNER JOIN  sakila.actor
+ON sakila.film_actor.actor_id = sakila.actor.actor_id),
+films_info as (SELECT actor_id, first_name, last_name, 'title', language_id
+FROM sakila.film
+INNER JOIN actors_info ON  actors_info.film_id = sakila.film.film_id
+order by 'title')
+SELECT actor_id, first_name, last_name, 'title', sakila.language.name as 'language_name'
+FROM films_info
+INNER JOIN sakila.language
+ON sakila.language.language_id = films_info.language_id
+WHERE sakila.language.name != 'English'
