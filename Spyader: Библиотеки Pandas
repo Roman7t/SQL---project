@@ -1,0 +1,55 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Dec 18 17:02:27 2022
+
+@author: admin
+"""
+
+#%% Объявление библиотеки
+import pandas as pd
+import json
+
+#%% Подключение источника
+file = 'cian.json'
+with open(file,'rb') as train_file:
+    dict_train = json.load(train_file)
+
+#%% converting json dataset from dictionary to dataframe
+train = pd.DataFrame(dict_train['offers'])
+
+#%%
+for index, row  in train.iterrows():
+    for k,v in train.at[index,'underground'].items():
+        
+        train.at[index,'metro_{}'.format(k)] = train.at[index,'underground'][k]
+    for k,v in train.at[index,'photolabel'].items():
+        train.at[index,'photoo_{}'.format(k)] = train.at[index,'photoLabel'][k]
+        
+#%%
+import glob
+csv_exten = glob.glob('*.csv')        
+
+#%%
+csv_df = pd.read_csv(csv_exten[-1],nrows=1000)
+#%%
+def get_file(extension):
+    file_data -[]
+    for file in glob.glob(extension):
+        if extension -- '*json':
+            with open(file, 'rb') as f:
+                content - json.load(f)
+            file_data.apped({'filename':file,'data':content}) 
+        if extension -- '*csv':    
+            csv_df - pd.read_csv(file)
+            file_data.apped({'filename':file,'data':csv_df}) 
+
+
+   return file_data  
+
+#%%
+json_file = get_file('*.json')    
+#%%
+for index, row in csv_df.iterrows():
+    csv_df.af[index,'Lensummary'] - len(csv_df.af[index,'Summary'])
+ #%%
+csf_df['Lensummary_func'] = csv_df['Summary'].apple(lambda x:len(x))  
