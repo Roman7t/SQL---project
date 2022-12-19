@@ -1,0 +1,20 @@
+
+#%% Подключение к библиотекам
+
+import glob
+import pandas as pd
+
+#%% Подключение к файлам с расширением csv
+csv_files = glob.glob('*.csv')
+
+#%% Получение дата фрейма для каждого файла
+
+csv_dfs = []
+
+for elem in csv_files:
+    csv_dfs.append(pd.read_csv(elem, nrows=1000))
+    
+#%%
+first_df = csv_dfs[0]
+#%%
+first_df_select = first_df[['Period', 'Subject','Group']]
